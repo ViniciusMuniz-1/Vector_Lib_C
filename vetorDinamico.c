@@ -144,11 +144,11 @@
             return array_list_size(list);
         }
 
-        int a = list->data[index], b = list->data[index+1];
-        for(int j = index; j < list->size; j++){
-            list->data[j+1] = a;
-            a = b;
-            b = list->data[j+2];
+        int current = list->data[index], next = list->data[index+1];
+        for(int i = index; i < list->size; i++){
+            list->data[i+1] = current;
+            current = next;
+            next = list->data[i+2];
         }
 
         list->data[index] = value;
@@ -160,7 +160,7 @@
 
     //----------------------------------------------------------------------------------------
     //Remove um elemento de um índice específicado determinado pelo parâmetro index
-    //Complexidade: O(N²), visto que precisa encontrar o elmento e depois mover todos os elementos para a esquerda
+    //Complexidade: O(N), visto que precisa encontrar o elmento e depois mover todos os elementos para a esquerda
     int array_list_remove_from(struct array_list *list, int index) {
         if (list == NULL || index < 0 || index >= list->size) {
             return -1; // Verificar se a lista é válida e se o índice está dentro dos limites
@@ -172,17 +172,13 @@
         }
 
         // Remover o elemento encontrado
-        int tam = 0;
-        int* new_data = (int*)malloc(sizeof(int) * list->size-1);
-        for(int i = 0; i < list->size; i++){
-            if(i != index){
-                new_data[tam] = list->data[i];
-                tam++;
-            }
+        int next = list->data[index+1];
+        for(int j = index; j < list->size; j++){
+            list->data[j] = next;
+            next = list->data[j+1];
         }
 
-        free(list->data);
-        list->data = new_data;
+
         list->size--;
         return array_list_size(list);
 
@@ -269,6 +265,9 @@
         array_list_print(list01);
         printf("\n");
         array_list_insert_at(list01, 6, 5);
+        array_list_print(list01);
+        printf("\n");
+        array_list_insert_at(list01, 1, 1);
         array_list_print(list01);
         printf("\n");
         array_list_remove_from(list01, 1);
