@@ -73,17 +73,28 @@
 
 
     //----------------------------------------------------------------------------------------
+    //Retorna a quantiade de elementos existente na lista;
+    //COMPLEXIDADE: O(1)
+    unsigned int array_list_size(struct array_list * list){
+        return list->size;
+    }
+    //----------------------------------------------------------------------------------------
+
+
+    //----------------------------------------------------------------------------------------
     //Para o push_back, saber o tamanho vai ser a chave, visto que o último elemento deve ser adicionado no último index
     //Adiciona um novo elemento ao final do vetor;
     //COMPLEXIDADE: O(1), visto que sempre será adicionado ao final do vetor
-    void array_list_push_back(struct array_list *list, int value){
+    unsigned int array_list_push_back(struct array_list *list, int value){
         if(list->size == list->capacity){
             array_list_increase_capacity(list);
             list->data[list->size++] = value;
+            return array_list_size(list);
         }
         else{
-            list->data[list->size++] = value;
+            list->data[list->size++] = value;       
         }
+        return array_list_size(list);
     }
     //----------------------------------------------------------------------------------------
 
@@ -118,15 +129,6 @@
     //COMPLEXIDADE: O(1), visto que faz a mesma operação independente do tamanho do vetor
     void array_list_pop_back(struct array_list *list){
         list->size--;
-    }
-    //----------------------------------------------------------------------------------------
-
-
-    //----------------------------------------------------------------------------------------
-    //Retorna a quantiade de elementos existente na lista;
-    //COMPLEXIDADE: O(1)
-    unsigned int array_list_size(struct array_list * list){
-        return list->size;
     }
     //----------------------------------------------------------------------------------------
 
@@ -183,11 +185,12 @@
         return array_list_size(list);
 
         // Verificando se é necessário diminuir a capacidade do array
+        //VERIFICAR QUANDO ESTÁ COM 25% DA CARGA
         if (list->capacity - list->size >= 0) {
-            int *new_data = (int *)realloc(list->data, sizeof(int) * (list->capacity - 10));
+            int *new_data = (int *)realloc(list->data, sizeof(int) * (list->capacity/2));
             if (new_data != NULL) {
                 list->data = new_data;
-                list->capacity -= 10;
+                list->capacity /= 2;
             }
         }
 

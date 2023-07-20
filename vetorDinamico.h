@@ -34,11 +34,9 @@ int array_list_get(array_list * list, int index, int *error);
  * \brief  Gets the value stored on index 'index'
  * 
  * \param list A pointer to the list structure
- * \param index An integer with the index where to get the element
- * \param error A pointer to an integer to set error if it occur.
- * \return int The value stored on index 'index'
+ * \param end_reading An integer with the end of reading
  */
-int array_list_read_until(array_list * list, int index, int *error);
+int array_list_read_until(array_list * list, int end_reading);
 
 /**
  * \brief  Appends a new element to the end of the list.
