@@ -149,7 +149,7 @@
             return linked_list_size(list);
         }
 
-        if(index == linked_list_size(list)){
+        if(index == linked_list_size(list)-1){
             linked_list_push_back(list, value);
             return linked_list_size(list);
         }
